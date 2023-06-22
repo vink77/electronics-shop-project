@@ -7,9 +7,11 @@ from src.item import Item
 def smart():
     return Item("Смартфон", 10000, 20)
 
-
+def get(smart):
+    assert smart.name == "Смартфон"
+    assert smart.price == 10000
+    assert smart.quantity == 20
 def test_calculate_total_price(smart):
-    #item1 = Item("Смартфон", 10000, 20)
     assert smart.calculate_total_price() == 200000
 
 def test_apply_discount(smart):
