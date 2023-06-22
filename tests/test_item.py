@@ -11,6 +11,7 @@ def get(smart):
     assert smart.name == "Смартфон"
     assert smart.price == 10000
     assert smart.quantity == 20
+
 def test_calculate_total_price(smart):
     assert smart.calculate_total_price() == 200000
 
