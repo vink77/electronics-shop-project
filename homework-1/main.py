@@ -1,3 +1,4 @@
+# noinspection PyUnresolvedReferences
 from src.item import Item
 
 if __name__ == '__main__':
