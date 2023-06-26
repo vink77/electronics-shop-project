@@ -10,7 +10,7 @@ def smart():
 
 
 def get(smart):
-    assert smart.name == "Смартфон"
+    assert smart.__name == "Смартфон"
     assert smart.price == 10000
     assert smart.quantity == 20
 

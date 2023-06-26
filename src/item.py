@@ -1,3 +1,4 @@
+import csv,os
 class Item:
     """
     Класс для представления товара в магазине.
@@ -10,14 +11,43 @@ class Item:
         Создание экземпляра класса item.
 
 
-        :param name: Название товара.
+        :param __name: Название товара.
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, new_name):
+        if len(new_name) <= 10:
+            self.__name = new_name
+        else:
+            self.__name = new_name[:10]
+
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        Item.all = []
+
+        with open('../src/items.csv', 'r', encoding='windows-1251') as csvfile:
+            data = csv.DictReader(csvfile)
+            for item in data:
+                name = item['name']
+                price = cls.string_to_number(item['price'])
+                quantity = cls.string_to_number(item['quantity'])
+                cls(name, price, quantity)
+    @staticmethod
+    def string_to_number(string_number):
+        result = int(float(string_number))
+        return result
+
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
