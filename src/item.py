@@ -1,4 +1,11 @@
-import csv,os
+import csv
+
+
+import os
+
+
+print(os.path.exists('C:\Skypro\HW13_2_1\electronics-shop-project\src\items.csv'))
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -31,18 +38,18 @@ class Item:
         else:
             self.__name = new_name[:10]
 
-
     @classmethod
     def instantiate_from_csv(cls):
         Item.all = []
 
-        with open('../src/items.csv', 'r', encoding='windows-1251') as csvfile:
+        with open('C:\Skypro\HW13_2_1\electronics-shop-project\src\items.csv', 'r', encoding='windows-1251') as csvfile:
             data = csv.DictReader(csvfile)
             for item in data:
                 name = item['name']
                 price = cls.string_to_number(item['price'])
                 quantity = cls.string_to_number(item['quantity'])
                 cls(name, price, quantity)
+
     @staticmethod
     def string_to_number(string_number):
         result = int(float(string_number))
@@ -54,7 +61,7 @@ class Item:
 
         :return: Общая стоимость товара.
         """
-        return self.price*self.quantity
+        return self.price * self.quantity
 
     def apply_discount(self) -> None:
         """
