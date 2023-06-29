@@ -2,8 +2,6 @@ import csv
 
 
 import os
-
-
 print(os.path.exists('C:\Skypro\HW13_2_1\electronics-shop-project\src\items.csv'))
 
 class Item:
@@ -26,6 +24,13 @@ class Item:
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
+
+    def __repr__(self):
+        result =f'{self.__class__.__name__}(\'{self.__name}\', {self.price}, {self.quantity})'
+        return result
+
+    def __str__(self):
+        return f'{self.name}'
 
     @property
     def name(self):
