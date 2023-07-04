@@ -2,7 +2,7 @@ import csv
 
 
 import os
-print(os.path.exists('C:\Skypro\HW13_2_1\electronics-shop-project\src\items.csv'))
+#print(os.path.exists('C:\Skypro\HW13_2_1\electronics-shop-project\src\items.csv'))
 
 class Item:
     """
@@ -11,7 +11,7 @@ class Item:
     pay_rate = 1.0
     all = []
 
-    def __init__(self, name: str, price: float, quantity: int) -> None:
+    def __init__(self, name, price, quantity):
         """
         Создание экземпляра класса item.
 
@@ -26,7 +26,7 @@ class Item:
         Item.all.append(self)
 
     def __repr__(self):
-        result =f'{self.__class__.__name__}(\'{self.__name}\', {self.price}, {self.quantity})'
+        result =f'{self.__class__.__name__}(\'{self.name}\', {self.price}, {self.quantity})'
         return result
 
     def __str__(self):
@@ -41,7 +41,7 @@ class Item:
         if len(new_name) <= 10:
             self.__name = new_name
         else:
-            self.__name = new_name[:10]
+            self.__ame = new_name[:10]
 
     @classmethod
     def instantiate_from_csv(cls):
@@ -74,3 +74,8 @@ class Item:
         """
         self.price *= self.pay_rate
         return self.price
+
+    def __add__(self, other):
+        #print(isinstance(other.Item))
+        #if  isinstance(other, Item):
+            return self.quantity + other.quantity
