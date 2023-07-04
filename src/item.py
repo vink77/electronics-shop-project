@@ -1,9 +1,6 @@
 import csv
 
-
-
 import os
-#print(os.path.exists('C:\Skypro\HW13_2_1\electronics-shop-project\src\items.csv'))
 
 class Item:
     """
@@ -42,7 +39,7 @@ class Item:
         if len(new_name) <= 10:
             self.__name = new_name
         else:
-            self.__ame = new_name[:10]
+            self.__name = new_name[:10]
 
     @classmethod
     def instantiate_from_csv(cls):

@@ -4,6 +4,7 @@ class Phone(Item):
         super().__init__(name, price, quantity)
         if type(number_of_sim)== int and number_of_sim > 0:
             self.number_of_sim = number_of_sim
+            print(number_of_sim)
         else:
             raise ValueError("Количество физических SIM-карт должно быть целым числом больше нуля")
 
@@ -15,3 +16,12 @@ class Phone(Item):
     def __str__(self):
         return f'{self.name}'
 
+    @property
+    def number_of_sim(self):
+        return self
+    @number_of_sim.setter
+    def number_of_sim(self, new_number):
+        #if type(self.number_of_sim) == int and self.number_of_sim > 0:
+
+        self.number_of_sim = new_number
+        print(self.number_of_sim)
