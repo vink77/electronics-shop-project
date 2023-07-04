@@ -1,6 +1,7 @@
 import csv
 
 
+
 import os
 #print(os.path.exists('C:\Skypro\HW13_2_1\electronics-shop-project\src\items.csv'))
 
@@ -76,6 +77,7 @@ class Item:
         return self.price
 
     def __add__(self, other):
-        #print(isinstance(other.Item))
-        #if  isinstance(other, Item):
+        if isinstance(other, Item) and isinstance(self, Item):
             return self.quantity + other.quantity
+        else:
+            raise ValueError ("Нельзя сложить `Phone` или `Item` с экземплярами не `Phone` или `Item` классов")
