@@ -13,7 +13,6 @@ class Phone(Item):
 
     @property
     def number_of_sim(self):
-        print(self._number_of_sim)
         return self._number_of_sim
 
     @number_of_sim.setter
