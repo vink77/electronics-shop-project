@@ -78,3 +78,4 @@ class Item:
             return self.quantity + other.quantity
         else:
             raise ValueError ("Нельзя сложить `Phone` или `Item` с экземплярами не `Phone` или `Item` классов")
+
