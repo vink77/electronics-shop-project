@@ -73,9 +73,3 @@ class Item:
         self.price *= self.pay_rate
         return self.price
 
-    def __add__(self, other):
-        if isinstance(other, Item) and isinstance(self, Item):
-            return self.quantity + other.quantity
-        else:
-            raise ValueError ("Нельзя сложить `Phone` или `Item` с экземплярами не `Phone` или `Item` классов")
-

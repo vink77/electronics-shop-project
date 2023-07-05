@@ -1,6 +1,6 @@
 from src.item import Item
 class Phone(Item):
-    def __init__(self, name, price, quantity, number_of_sim: int) -> None:
+    def __init__(self, name, price, quantity, number_of_sim = None) -> None:
         super().__init__(name, price, quantity)
         self._number_of_sim = number_of_sim
 
@@ -21,5 +21,17 @@ class Phone(Item):
             self._number_of_sim = news_number
         else:
             raise ValueError("Количество физических SIM-карт должно быть целым числом больше нуля")
+
+
+    def __add__(self, other):
+        """сложение экземпляров класса"""
+
+        if isinstance(other, Item) and isinstance(self, Item):
+            return self.quantity + other.quantity
+        else:
+            raise ValueError ("Нельзя сложить `Phone` или `Item` с экземплярами не `Phone` или `Item` классов")
+
+    def __radd__(self, other):
+        return self.__add__(other)
 
 
