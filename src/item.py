@@ -4,13 +4,13 @@ import os
 
 
 class InstantiateCSVError(Exception):
-    def __init__(self, *args, **kwargs):
-        self.message = 'Файл items.csv поврежден'
+    def __init__(self,path, *args, **kwargs):
+        self.message = f'Файл  {path}  поврежден'
 
 
-class NotIntegerError(ValueError):
-    def __init__(self, *args, **kwargs):
-        self.message = 'не целое'
+#class NotIntegerError(ValueError):
+#    def __init__(self, *args, **kwargs):
+ #       self.message = 'не целое'
 
 
 class Item:
@@ -53,31 +53,30 @@ class Item:
             self.__name = new_name[:10]
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, path='../src/items.csv'):
         Item.all = []
         try:
-            with open('../src/items.csv', 'r', encoding='windows-1251') as csvfile:
+            with open(path, 'r', encoding='windows-1251') as csvfile:
                 data = csv.DictReader(csvfile)
                 for item in data:
                     name = item['name']
                     price = cls.string_to_number(item['price'])
 
                     if item['quantity'] is None:
-                        raise InstantiateCSVError
-                    else:
-                        try:
-                            int(item['quantity'])
-                        except ValueError:
-                            print("количество товара не целое")
-                        quantity = cls.string_to_number(item['quantity'])
+                        raise InstantiateCSVError(path)
+                    a= int(item['quantity'])
+
+                    quantity = cls.string_to_number(item['quantity'])
                     cls(name, price, quantity)
 
         except FileNotFoundError:
-            print('Отсутствует файл item.csv')
+            print(f'Отсутствует файл {path}')
 
         except InstantiateCSVError as ex:
             print(ex.message)
 
+        except ValueError:
+            print("Количество товара не целое")
     @staticmethod
     def string_to_number(string_number):
         result = int(float(string_number))
