@@ -8,6 +8,11 @@ class InstantiateCSVError(Exception):
         self.message = 'Файл items.csv поврежден'
 
 
+class NotIntegerError(ValueError):
+    def __init__(self, *args, **kwargs):
+        self.message = 'не целое'
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -56,11 +61,15 @@ class Item:
                 for item in data:
                     name = item['name']
                     price = cls.string_to_number(item['price'])
+
                     if item['quantity'] is None:
                         raise InstantiateCSVError
                     else:
+                        try:
+                            int(item['quantity'])
+                        except ValueError:
+                            print("количество товара не целое")
                         quantity = cls.string_to_number(item['quantity'])
-
                     cls(name, price, quantity)
 
         except FileNotFoundError:
