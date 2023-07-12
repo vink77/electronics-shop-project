@@ -2,6 +2,12 @@ import csv
 
 import os
 
+
+class InstantiateCSVError(Exception):
+    def __init__(self, *args, **kwargs):
+        self.message = 'Файл items.csv поврежден'
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -24,7 +30,7 @@ class Item:
         Item.all.append(self)
 
     def __repr__(self):
-        result =f'{self.__class__.__name__}(\'{self.name}\', {self.price}, {self.quantity})'
+        result = f'{self.__class__.__name__}(\'{self.name}\', {self.price}, {self.quantity})'
         return result
 
     def __str__(self):
@@ -44,14 +50,24 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         Item.all = []
+        try:
+            with open('../src/items.csv', 'r', encoding='windows-1251') as csvfile:
+                data = csv.DictReader(csvfile)
+                for item in data:
+                    name = item['name']
+                    price = cls.string_to_number(item['price'])
+                    if item['quantity'] is None:
+                        raise InstantiateCSVError
+                    else:
+                        quantity = cls.string_to_number(item['quantity'])
 
-        with open('C:\Skypro\HW13_2_1\electronics-shop-project\src\items.csv', 'r', encoding='windows-1251') as csvfile:
-            data = csv.DictReader(csvfile)
-            for item in data:
-                name = item['name']
-                price = cls.string_to_number(item['price'])
-                quantity = cls.string_to_number(item['quantity'])
-                cls(name, price, quantity)
+                    cls(name, price, quantity)
+
+        except FileNotFoundError:
+            print('Отсутствует файл item.csv')
+
+        except InstantiateCSVError as ex:
+            print(ex.message)
 
     @staticmethod
     def string_to_number(string_number):
@@ -72,4 +88,3 @@ class Item:
         """
         self.price *= self.pay_rate
         return self.price
-
